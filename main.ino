@@ -38,15 +38,21 @@ void process_auto_mode() {
     digitalWrite(LED_PIN_GREEN, HIGH);
     digitalWrite(LED_PIN_YELLOW, LOW);
     digitalWrite(LED_PIN_RED, LOW);
-    delay(3000);
+    delay(2400);
+    for (int i = 0; i < 4; i++) {
+      digitalWrite(LED_PIN_GREEN, HIGH);
+      delay(300);
+      digitalWrite(LED_PIN_GREEN, LOW);
+      delay(300);
+    }
     autoState = 1;
   } else if (autoState == 1) {
     digitalWrite(LED_PIN_GREEN, LOW);
     for (int i = 0; i < 4; i++) {
       digitalWrite(LED_PIN_YELLOW, HIGH);
-      delay(250);
+      delay(400);
       digitalWrite(LED_PIN_YELLOW, LOW);
-      delay(250);
+      delay(400);
     }
     autoState = 2;
   } else if (autoState == 2) {
