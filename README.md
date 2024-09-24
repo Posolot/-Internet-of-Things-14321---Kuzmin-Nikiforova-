@@ -10,3 +10,7 @@ automatic -
 then yellow flashes for 3.2 seconds and red lights up for 3
 
 manual mode - first all LEDs turn off, then you can turn on green or red or flashing yellow
+
+
+## diagram
+![traffic light diagram](img/traffic_light_diagram.jpg)
