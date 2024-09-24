@@ -1,6 +1,6 @@
-#define LED_PIN_GREEN 13
+#define LED_PIN_GREEN 11
 #define LED_PIN_YELLOW 12
-#define LED_PIN_RED 11
+#define LED_PIN_RED 13
 
 #define SET_GREEN_ON 'g'
 #define SET_YELLOW_BLINK 'y'
