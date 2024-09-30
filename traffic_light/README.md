@@ -14,10 +14,10 @@ manual mode - first all LEDs turn off, then you can turn on green or red(command
 manual mode working 60 seconds or until command 'a'(automatic mode)
 
 command list:
-'r'- red light
-'g'- green light
-'m'- manual mode
-'a'- automatic mode
+'r'- red light   
+'g'- green light   
+'m'- manual mode   
+'a'- automatic mode   
 
 
 ## diagram
