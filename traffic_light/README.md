@@ -19,6 +19,7 @@ command list:
 'm'- manual mode   
 'a'- automatic mode   
 
+programm start with automatic mode
 
 ## diagram
 ![traffic light diagram](img/traffic_light_diagram.jpg)
