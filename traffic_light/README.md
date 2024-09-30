@@ -71,8 +71,9 @@
 - Реализовать неблокирующую задержку с использованием `millis()` вместо блокирующей функции `pause()`.
 - Расширить функциональность для управления дополнительными светодиодами или добавить новые режимы.
 
-### Пример схемы
-
+## Демонстрация
+![автоматическое](https://drive.google.com/file/d/1YnW-UpSIGs-cqXMzE_rZFz48GjtCdia8/view?usp=sharing)
+![ручной](https://drive.google.com/file/d/1yhva5JxDYfaJMH4ATXGinV9cigerLfT_/view?usp=sharing)
 
 ## diagram
 ![traffic light diagram](img/traffic_light_diagram.jpg)
