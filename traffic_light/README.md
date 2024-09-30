@@ -13,7 +13,7 @@ then yellow flashes for 1 seconds then red lights up for 7 seconds and 1 second 
 manual mode - first all LEDs turn off, then you can turn on green or red(command 'g' or 'r')
 manual mode working 60 seconds or until command 'a'(automatic mode)
 
-command list:
+command list:   
 'r'- red light   
 'g'- green light   
 'm'- manual mode   
