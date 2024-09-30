@@ -72,8 +72,8 @@
 - Расширить функциональность для управления дополнительными светодиодами или добавить новые режимы.
 
 ## Демонстрация
-![автоматическое](https://drive.google.com/file/d/1YnW-UpSIGs-cqXMzE_rZFz48GjtCdia8/view?usp=sharing)
-![ручной](https://drive.google.com/file/d/1yhva5JxDYfaJMH4ATXGinV9cigerLfT_/view?usp=sharing)
+[Автоматическое](https://drive.google.com/file/d/1YnW-UpSIGs-cqXMzE_rZFz48GjtCdia8/view?usp=sharing)   
+[Ручной](https://drive.google.com/file/d/1yhva5JxDYfaJMH4ATXGinV9cigerLfT_/view?usp=sharing)   
 
 ## diagram
 ![traffic light diagram](img/traffic_light_diagram.jpg)
