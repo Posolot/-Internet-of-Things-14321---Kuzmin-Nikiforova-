@@ -9,6 +9,7 @@ from uuid import getnode as get_mac
 import hashlib
 from collections import deque
 from threading import Thread
+import re
 
 
 photo_val_resp = ''
@@ -26,7 +27,10 @@ def send_command(
     connection.write(cmd.encode())
     if response_len != 0:
         resp: bytes = connection.read(response_len)
-        str_resp = str(int.from_bytes(resp, byteorder='little'))
+        if cmd == 'p':
+            str_resp = str(int.from_bytes(resp, byteorder='little'))
+        else:
+            str_resp = resp.decode()
     return str_resp
 
 
@@ -46,7 +50,7 @@ client = mqtt_client.Client(
 averaging_queue = deque(maxlen=100)
 averaging_interval = 2
 
-streaming_on = True
+streaming_on = False
 last_stream_on = False
 streaming_interval = 0.5
 
@@ -69,6 +73,23 @@ def stream_on():
         print(f"Publishing stream: {photo_val}")
         client.publish(f"lab/{pub_id}/photo/stream", photo_val)
         time.sleep(streaming_interval)
+        if streaming_on == False:
+            break
+
+def on_off():
+    global streaming_on
+    while True:
+        data = input().lower()
+        if data == "on":
+            streaming_on = True
+            print("Streaming started")
+            response_message = "on"
+            client.publish(f"lab/{pub_id}/photo/activate_stream", response_message)
+        elif re.search(r"off", data):
+            streaming_on = False
+            print("Streaming stopped")
+            response_message = "off"
+            client.publish(f"lab/{pub_id}/photo/activate_stream", response_message)
 
 
 while True:
@@ -89,14 +110,15 @@ while True:
     if streaming_on and last_stream_on != streaming_on:
         stream_thread = Thread(target=stream_on)
         stream_thread.start()
-        last_stream_on = streaming_on
-    else:
-        if 'instant_thread' in locals() and stream_thread.is_alive():
-            stream_thread.join()
-            last_stream_on = streaming_on
+        last_stream_on = True
+    elif 'stream_thread' in locals() and last_stream_on != streaming_on:
+        stream_thread.join()
+        last_stream_on = False
+
+    on_off_thread = Thread(target=on_off)
+    on_off_thread.start()
 
 
-  
 
     if photo_val < min_value and photo_val > 0:
         min_value = photo_val
@@ -115,4 +137,3 @@ while True:
 
 client.disconnect()
 client.loop_stop()
-
