@@ -16,9 +16,9 @@ data_instant = {}
 streaming_on = False
 
 
-def avg(data_list):
-    if not data_list:
-        return 0
+def calculate_moving_average(data_list):
+    if len(data_list) < 5:
+        return None
     return sum(data_list) / len(data_list)
 
 
@@ -35,17 +35,13 @@ def send_command(cmd: str, response_len: int, connection: serial.Serial) -> str:
 
 
 def detect_trend(data_list):
-    if len(data_list) < window_size:
+    if len(data_list) < 5:
         return None
 
-    is_decreasing = all(x > y for x, y in zip(data_list, data_list[1:]))
-    is_increasing = all(x < y for x, y in zip(data_list, data_list[1:]))
+    increasing = all(x < y for x, y in zip(data_list[-5:], data_list[-4:]))
+    decreasing = all(x > y for x, y in zip(data_list[-5:], data_list[-4:]))
 
-    if is_decreasing:
-        return 'decreasing'
-    elif is_increasing:
-        return 'increasing'
-    return None
+    return increasing, decreasing
 
 
 def on_message(client, userdata, message):
@@ -61,24 +57,22 @@ def on_message(client, userdata, message):
         print("Average data received:", data)
 
     elif message.topic == f"lab/{pub_id}/photo/stream":
-        print(f"Stream data: {data}")
         measurements.append(int(data))
-        if len(measurements) > window_size:
-            measurements.pop(0)
-        if len(measurements) >= 1:
-            increasing = all(measurements[i] < measurements[i + 1] for i in range(len(measurements) - 1))
-            decreasing = all(measurements[i] > measurements[i + 1] for i in range(len(measurements) - 1))
 
-            if int(data)-2 <= min_avg:
-                resp = send_command('d', responses['d'], connection_led)
-            elif int(data)+2 >= max_avg:
-                resp = send_command('u', responses['u'], connection_led)
-            elif increasing:
-                print("Значения растут, включаем светодиод.")
-                resp = send_command('u', responses['u'], connection_led)
-            elif decreasing:
-                print("Значения падают, выключаем светодиод.")
-                resp = send_command('d', responses['d'], connection_led)
+        if int(data) <= min_avg + 10:
+            resp = send_command('d', responses['d'], connection_led)
+        elif int(data) >= max_avg - 10:
+            resp = send_command('u', responses['u'], connection_led)
+        else:
+            trend = detect_trend(list(measurements))
+            if trend:
+                increasing, decreasing = trend
+                if increasing:
+                    resp = send_command('u', responses['u'], connection_led)
+                elif decreasing:
+                    resp = send_command('d', responses['d'], connection_led)
+                else:
+                    resp = send_command('d', responses['d'], connection_led)
 
     elif message.topic == f"lab/{pub_id}/photo/min":
         min_avg = min_avg if min_avg < int(data) else int(data)
