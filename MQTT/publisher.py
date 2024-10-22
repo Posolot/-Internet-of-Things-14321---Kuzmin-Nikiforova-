@@ -65,12 +65,12 @@ print("Publishing")
 
 
 def stream_on():
+    print('Streaming...')
     while True:
         photo_val_resp = send_command('p', responses['p'], connection_photo)
         while photo_val_resp == '':
             photo_val_resp = send_command('p', responses['p'], connection_photo)
         photo_val = int(photo_val_resp)
-        print(f"Publishing stream: {photo_val}")
         client.publish(f"lab/{pub_id}/photo/stream", photo_val)
         time.sleep(streaming_interval)
         if streaming_on == False:
