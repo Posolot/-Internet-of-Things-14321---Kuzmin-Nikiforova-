@@ -16,8 +16,6 @@ void setup(void){
 
 void loop(void){
   int val = analogRead(PIN_PHOTO_SENSOR);
-  String comled = "d";
-  // Serial.println(val);
   if (minval > val){
     minval = val;
   }
@@ -25,9 +23,10 @@ void loop(void){
     maxval = val;
   }
   if (val>((minval+maxval)/2)){
-    comled="u";
+    mqtt_cli.publish("esp8266/dashaIlya/setCommand", "u");
+  } else {
+    mqtt_cli.publish("esp8266/dashaIlya/setCommand", "d");
   }
-  mqtt_cli.publish("esp8266/dashaIlya/setCommand", comled.c_str());
-  delay(500);                  
+  delay(500);              
 
 }
