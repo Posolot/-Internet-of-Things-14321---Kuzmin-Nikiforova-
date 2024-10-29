@@ -6,3 +6,4 @@
 - [LedPhotoDistributedSerial](led_photo_distributed_serial/README.md)
 - [MQTT_auditorium](MQTT_auditorium/README.md)
 - [MQTT](MQTT/README.md)
+- [LedPhotoMQTT](LedPhotoMQTT/README.md)
