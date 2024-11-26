@@ -7,3 +7,6 @@
 - [MQTT_auditorium](MQTT_auditorium/README.md)
 - [MQTT](MQTT/README.md)
 - [LedPhotoMQTT](LedPhotoMQTT/README.md)
+- [LedMatrix](README.md)
+- [LedMatrix8x8](README.md)
+- [LedMatrix8x8_registers](README.md)
