@@ -1,12 +1,12 @@
 # Оглавление
 Задания:
 
-- [Светофор](traffic_light/README.md)
-- [Детектор источника света](light_source_detector/README.md)
-- [LedPhotoDistributedSerial](led_photo_distributed_serial/README.md)
-- [MQTT_auditorium](MQTT_auditorium/README.md)
-- [MQTT](MQTT/README.md)
-- [LedPhotoMQTT](LedPhotoMQTT/README.md)
-- [LedMatrix](LedMatrix/README.md)
-- [LedMatrix8x8](LedMatrix8x8/README.md)
-- [LedMatrix8x8_registers](LedMatrix8x8_registers/README.md)
+- [Светофор](traffic_light)
+- [Детектор источника света](light_source_detector)
+- [LedPhotoDistributedSerial](led_photo_distributed_serial)
+- [MQTT_auditorium](MQTT_auditorium)
+- [MQTT](MQTT)
+- [LedPhotoMQTT](LedPhotoMQTT)
+- [LedMatrix](LedMatrix)
+- [LedMatrix8x8](LedMatrix8x8)
+- [LedMatrix8x8_registers](LedMatrix8x8_registers)
