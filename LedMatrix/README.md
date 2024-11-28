@@ -5,21 +5,108 @@
 
 ## Таблица
 
-| leds  | pin7 | pin8 | pin11 | pin12 |
-|-------|------|------|-------|-------|
-| 1     | H  | L  | L  | H  |
-| 2     | H  | L  | H  | L  |
-| 3     | L  | H  | L  | H  |
-| 4     | L  | H  | H  | L  |
-| 1,2   | H  | L  | L  | L  |
-| 1,3   | H  | H  | L  | H  |
-| 2,4   | H  | H  | H  | L  |
-| 3,4   | L  | H  | L  | L  |
-| 1,4   | H/L | L/H | L/H | H/L |
-| 2,3   | H/L | L/H | H/L | L/H |
-| 1,2,3 | H/L | L/H | L/H | L/L |
-| 1,2,4 | H/L | L/H | H/L | L/L |
-| 1,3,4 | L/H | H/L | L/L | L/H |
-| 2,3,4 | H/L | L/H | L/L | L/H |
-| all   | H  | H  | L  | L  |
-| zero  | L  | L  | L  | L  |
+<table>
+  <tbody><tr>
+    <th>leds</th>
+    <th>pin7</th>
+    <th>pin8</th>
+    <th>pin11</th>
+    <th>pin12</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>H</td>
+    <td>L</td>
+    <td>L</td>
+    <td>H</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>H</td>
+    <td>L</td>
+    <td>H</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>L</td>
+    <td>H</td>
+    <td>L</td>
+    <td>H</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>L</td>
+    <td>H</td>
+    <td>H</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>1,2</td>
+    <td>H</td>
+    <td>L</td>
+    <td>L</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>3,4</td>
+    <td>L</td>
+    <td>H</td>
+    <td>L</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>1,3</td>
+    <td>H</td>
+    <td>H</td>
+    <td>L</td>
+    <td>H</td>
+  </tr>
+  <tr>
+    <td>2,4</td>
+    <td>H</td>
+    <td>H</td>
+    <td>H</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>1,4</td>
+    <td colspan="4">switch 1/4</td>
+  </tr>
+  <tr>
+    <td>2,3</td>
+    <td colspan="4">switch 2/3</td>
+  </tr>
+  <tr>
+    <td>1,2,3</td>
+    <td colspan="4">switch 1,2/3</td>
+  </tr>
+  <tr>
+    <td>2,3,4</td>
+    <td colspan="4">switch 2,4/3</td>
+  </tr>
+  <tr>
+    <td>1,3,4</td>
+    <td colspan="4">switch 3,4/1</td>
+  </tr>
+  <tr>
+    <td>1,2,4</td>
+    <td colspan="4">switch 2,4/1</td>
+  </tr>
+  <tr>
+    <td>1,2,3,4</td>
+    <td>H</td>
+    <td>H</td>
+    <td>L</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>ниодного</td>
+    <td>L</td>
+    <td>L</td>
+    <td>L</td>
+    <td>L</td>
+  </tr>
+</tbody></table>
+
+
