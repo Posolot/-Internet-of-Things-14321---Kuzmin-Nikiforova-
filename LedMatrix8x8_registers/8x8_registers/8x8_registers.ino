@@ -1,99 +1,82 @@
-#define STROKE_LED_1 1
-#define STROKE_LED_0 0
-#define STROKE_LED_2 2
-#define STROKE_LED_3 3
-#define STROKE_LED_4 4
-#define STROKE_LED_5 5
-#define STROKE_LED_6 6
-#define STROKE_LED_7 7
-
-#define Column_LED_2 8
-#define Column_LED_3 9
-#define Column_LED_4 10
-#define Column_LED_5 11
-#define Column_LED_6 12
-#define Column_LED_7 13
-#define Column_LED_A5 A4
-#define Column_LED_A4 A5
-
-String array[8][8] = {
-    {"0", "1", "1", "0", "0", "1", "1", "0"},
-    {"1", "1", "1", "1", "1", "1", "1", "1"},
-    {"1", "1", "1", "1", "1", "1", "1", "1"},
-    {"1", "1", "1", "1", "1", "1", "1", "1"},
-    {"0", "1", "1", "1", "1", "1", "1", "0"},
-    {"0", "0", "1", "1", "1", "1", "0", "0"},
-    {"0", "0", "0", "1", "1", "0", "0", "0"},
-    {"0", "0", "0", "1", "1", "0", "0", "1"},
+const byte images[][8] = {
+  {
+    B10000001,
+    B00000000,
+    B00111100,
+    B00111111,
+    B10000111,
+    B11100111,
+    B11111111,
+    B11100111
+  },
+  {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000
+  }
 };
 
 int currentRow = 0;
+int currentImage = 0;
+volatile int newImage = 0;
 
 void setup() {
   cli();
-  TCCR1A = 0;
-  TCCR1B = 0;
-  TCNT1 = 0;
-  OCR1A = 100;
-  TCCR1B |= (1 << WGM12);
-  TCCR1B |= (1 << CS12);
-  TIMSK1 |= (1 << OCIE1A);
+  DDRD = B11111111;
+  DDRB = B00111111;
+  DDRC = B00110000;
+
+  TCCR2A = 0;
+  TCCR2B = 0;
+  TCCR2B = TCCR2B | (1 << CS12);
+  TIMSK2 = TIMSK2 | (1 << TOIE2); 
   sei();
-
-  DDRD |= (1 << 0);  
-  DDRD |= (1 << 1);
-  DDRD |= (1 << 2);
-  DDRD |= (1 << 3);
-  DDRD |= (1 << 4);
-  DDRD |= (1 << 5);
-  DDRD |= (1 << 6);
-  DDRD |= (1 << 7);   
-  
-  DDRB |= (1 << 0);
-  DDRB |= (1 << 1);
-  DDRB |= (1 << 2);
-  DDRB |= (1 << 3);
-  DDRB |= (1 << 4);
-  DDRB |= (1 << 5);
-  DDRC |= (1 << 4);
-  DDRC |= (1 << 5);
-
-  
 }
 
-ISR(TIMER1_COMPA_vect) {
-  PORTD &= ~(0xFF);
-  PORTB &= ~(0xFF);
-  PORTC &= ~((1 << 4) | (1 << 5));
+ISR(TIMER2_OVF_vect) {
+  row_off();
   PORTD |= (1 << currentRow);
-  
-  for (int i = 0; i < 8; i++) {
-    int ledState = (array[currentRow][i] == "1") ? 1 : 0;
+  newImage++;
+
+  for (int col = 0; col < 8; col++) {
+    int ledState = (images[currentImage][currentRow] >> col) & 1;
 
     if (ledState == 1) {
-      if (i == 6) {
+      if (col < 6) {
+        PORTB |= (1 << col);
+      } else if (col == 6) {
         PORTC |= (1 << 4);
-      }
-      else if (i == 7) {
+      } else if (col == 7) {
         PORTC |= (1 << 5);
       }
-      else {
-        PORTB |= (1 << i);
-        }
     } else {
-      if (i == 6) {
+      if (col < 6) {
+        PORTB &= ~(1 << col);
+      } else if (col == 6) {
         PORTC &= ~(1 << 4);
-      }
-      else if (i == 7) {
+      } else if (col == 7) {
         PORTC &= ~(1 << 5);
-      }
-      else {
-        PORTB &= ~(1 << i);
       }
     }
   }
 
   currentRow = (currentRow + 1) % 8;
+
+  if (newImage >= 2000) {
+    currentImage = (currentImage == 0) ? 1 : 0;
+    newImage = 0;
+  }
+}
+
+void row_off() {
+  PORTD = B00000000;
+  PORTB = B00000000;
+  PORTC = B00000000;
 }
 
 void loop() {
