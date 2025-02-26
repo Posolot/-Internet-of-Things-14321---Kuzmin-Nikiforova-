@@ -1,8 +1,10 @@
 # Оглавление
 
 ## Задания (6 семестр):
-- [ButtonMatrix](ButtonMatrix)
+
 - [ButtonBounceProcessing](ButtonBounceProcessing)
+- [ButtonMatrix](ButtonMatrix)
+- [H-bridge](H-bridge)
 
 ## Задания (5 семестр):
 
