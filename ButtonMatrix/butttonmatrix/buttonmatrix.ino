@@ -53,10 +53,8 @@ void check_state(int row) {
   for (int col = 0; col < 3; col++) {
     if (button_state[row][col] != button_state_old[row][col]) {
       if (button_state[row][col]) { 
-        // запоминаем время начала нажатия
         press_start[row][col] = millis();
       } else { 
-        // выводим длительность нажатия
         press_duration[row][col] = millis() - press_start[row][col];
         print_press_duration(row, col);
       }
