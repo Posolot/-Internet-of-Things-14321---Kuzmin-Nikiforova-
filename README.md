@@ -1,7 +1,7 @@
 # Оглавление
 
 ## Задания (6 семестр):
-- [ButtonMatrix]( )
+- [ButtonMatrix](ButtonMatrix)
 - [ButtonBounceProcessing](ButtonBounceProcessing)
 
 ## Задания (5 семестр):
