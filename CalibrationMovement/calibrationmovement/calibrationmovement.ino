@@ -1,12 +1,10 @@
 #include <SoftwareSerial.h>
-#define H1 4 // direction
-#define H2 7 // direction
-
-#define E1 5 // speed PWM
-#define E2 6  // speed PWM
-
-#define LEFT_SIDE_FORWARD HIGH // Левое колесо, движение вперёд
-#define RIGHT_SIDE_FORWARD HIGH // Правое колесо, движение вперёд
+#define H1 4 
+#define H2 7 
+#define E1 5 
+#define E2 6  
+#define LEFT_SIDE_FORWARD HIGH 
+#define RIGHT_SIDE_FORWARD HIGH 
 
 bool forwad_calibrated = false;
 
@@ -25,31 +23,23 @@ int rotation_time_180 = 150;
 int rotation_time_270 = 200;
 int rotation_time_360 = 250;
 
-#define LEFT_SIDE_BACKSIDE LOW // Левое колесо, движение назад
-#define RIGHT_SIDE_BACKSIDE LOW // Правое колесо, движение назад
-
-// Дальномеры
+#define LEFT_SIDE_BACKSIDE LOW 
+#define RIGHT_SIDE_BACKSIDE LOW 
 #define PIN_TRIG 8
 #define PIN_ECHO 9
 long duration, cm;
-
 SoftwareSerial BTSerial(10, 11);
 
 void setup() {
-
-
   Serial.begin(9600);
   while (!Serial) {}
-  // Serial.println("Goodnight, PC!");
 
   BTSerial.begin(9600);
-  // BTSerial.println("Hello, phone?");
 
   pinMode(H1, OUTPUT);
   pinMode(H2, OUTPUT);
   pinMode(E1, OUTPUT);
   pinMode(E2, OUTPUT);
-
 }
 
 void calibrate_direction() {
@@ -60,10 +50,10 @@ void calibrate_direction() {
         go_forward(100);
       } else if (value == 'q') {
         stop();
-      } else if (value == 'A') { // Подтверждение выбора пользователем, переход на следующий этап калибровки
+      } else if (value == 'A') { 
         return;
       } else if (value == 'Y') {
-        if (iteration == 1) { // Перебор всех вомзможных вариантов направления движения каждого колеса
+        if (iteration == 1) { 
           LSF = true;
           RSF = true;
           LSB = false;
@@ -98,16 +88,15 @@ void calibrate_wheels_speed() {
       else if (value == "q") { 
         stop();
       } 
-      else if (value == "A") { // Выходим на следующий этап
+      else if (value == "A") { 
         return;
       }
-      else if (value == ">") { // Нужно чтобы ехала правее, то есть левое колесо сделать быстрее
+      else if (value == ">") { 
         speed_left_ratio += 10;
       }
-      else if (value == "<") { // Нужно чтобы ехала левее, то есть правое колесо сделать быстрее 
+      else if (value == "<") { 
         speed_left_ratio -= 10;
       }
-
     }
   }
 }
@@ -115,7 +104,7 @@ void calibrate_wheels_speed() {
 void calibrate_rotation() {
   int step = 1;
   while(true) {
-    if (step == 5) { // Откалиброваны все 4 случая (90, 180, 270, 360)
+    if (step == 5) { 
       return;
     }
     if (BTSerial.available() > 0) {
@@ -126,7 +115,7 @@ void calibrate_rotation() {
       else if (value == "A") {
         step += 1;
       }
-      else if (value == ">") { // Увеличиваем продолжительность
+      else if (value == ">") {
         if (step == 1) {
           rotation_time_90 += 20;
         }
@@ -140,7 +129,7 @@ void calibrate_rotation() {
           rotation_time_360 += 20;
         }
       }
-      else if (value == "<") { // Уменьшаем продолжительность поворота
+      else if (value == "<") { 
         if (step == 1) {
           rotation_time_90 -= 20;
         }
@@ -159,12 +148,9 @@ void calibrate_rotation() {
 }
 
 void calibration() {
-
   calibrate_direction();
   calibrate_wheels_speed();
   calibrate_rotation();
-  // done
-  
 }
 
 
@@ -175,15 +161,10 @@ void move(bool dir_left, int speed_left,
   speed_right += speed_right_ratio;
 
   digitalWrite(H1, dir_left);
-  // digitalWrite(H2, dir_right);
   analogWrite(E1, speed_left);
-  // analogWrite(E2, speed_right);
 
   digitalWrite(H2, dir_right);
-  // digitalWrite(H2, dir_right);
   analogWrite(E2, speed_right);
-  // analogWrite(E2, speed_right);
-
 }
 
 void go_forward(int speed) {
@@ -210,7 +191,6 @@ void turn_right(int speed, float ratio) {
   move(LEFT_SIDE_FORWARD, speed, RIGHT_SIDE_FORWARD, int(speed*ratio));
 }
 
-// Разворот назад
 void turn_left_onspot(int speed) {
   move(LEFT_SIDE_BACKSIDE, speed, RIGHT_SIDE_FORWARD, speed);
 }
@@ -236,7 +216,6 @@ void rotate_deg(int degree) {
   turn_right_onspot(200);
   long start_time = millis();
   while (millis() - start_time < rotation_time) {
-
   }
   stop();
 }
@@ -246,8 +225,6 @@ void stop() {
 }
 
 void loop() {
-  
   calibration();
   stop();
-
 }
