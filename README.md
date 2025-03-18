@@ -7,7 +7,7 @@
 - [RangeCalibration ?](RangeCalibration)
 - [H-bridge](H-bridge)
 - [StateMachine ?](StateMachine)
-- [CalibrationMovement ?](CalibrationMovement)
+- [CalibrationMovement](CalibrationMovement)
 
 ## Задания (5 семестр):
 
