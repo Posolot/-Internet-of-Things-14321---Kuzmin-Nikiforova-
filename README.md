@@ -8,6 +8,7 @@
 - [H-bridge](H-bridge)
 - [StateMachine](StateMachine)
 - [CalibrationMovement](CalibrationMovement)
+- [I2C_chat](I2C_chat)
 
 ## Задания (5 семестр):
 
@@ -20,4 +21,4 @@
 - [LedMatrix](LedMatrix)
 - [LedMatrix8x8](LedMatrix8x8)
 - [LedMatrix8x8_registers](LedMatrix8x8_registers)
-- [I2C_chat](I2C_chat)
+
