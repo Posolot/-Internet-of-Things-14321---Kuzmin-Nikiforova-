@@ -9,6 +9,7 @@
 - [StateMachine](StateMachine)
 - [CalibrationMovement](CalibrationMovement)
 - [I2C_chat](I2C_chat)
+- [SPI](SPI)
 
 ## Задания (5 семестр):
 
