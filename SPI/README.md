@@ -110,3 +110,7 @@ SS:    ────────────────────     (LOW в�
 * Нет адресации (нужны отдельные пины SS)
 * Больше проводов
 
+## Пример
+
+[tinkercad](https://www.tinkercad.com/things/iSZwHHzhugj/editel?returnTo=%2Fdashboard%2Fdesigns%2Fcircuits)
+
